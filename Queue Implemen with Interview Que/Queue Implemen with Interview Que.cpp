@@ -4,6 +4,7 @@
 #include <iostream>
 using namespace std;
 
+/*
 
 class Queue  //Basic Queue Operations..
 
@@ -37,7 +38,7 @@ public:
         {
             cout << "The queue is full:- QueueOverflow Condition." << endl;;
             return;
-        } 
+        }
         else
         {
             if (front == -1)
@@ -112,9 +113,153 @@ public:
 
 };
 
+
+*/
+
+class CircularQueue  //circular queue implementation..
+
+{
+    int* arr;
+    int size;
+    int front;
+    int rear;
+    int max_size;
+public:
+    CircularQueue(int default_size = 10)
+    {
+        arr = new int[default_size];
+        size = 0;
+        front = -1;
+        rear = -1;
+        max_size = default_size;
+        for (int i = 0; i < max_size; i++)
+            arr[i] = -1;
+    }
+
+    void enqueue(int data)
+    {
+        if (full())
+        {
+            cout << "Queue OverFlow" << endl;
+            return;
+        }
+        else
+        {
+            if (empty())
+            {
+                front = 0;
+                rear = 0;
+                arr[rear] = data;
+            }
+            else
+            {
+                arr[rear] = data;
+            }
+            rear = (rear + 1) % max_size;
+            size++;
+        }
+
+    }
+    void dequeue()
+    {
+        if (empty())
+        {
+            cout << "Queue Underflow Condition" << endl;
+            return;
+        }
+        else
+        {
+            arr[front] = -1;
+            front = (front + 1) % max_size;
+            if (front == rear)
+            {
+                front = -1;
+                rear = -1;
+            }
+            size--;
+        }
+    }
+    bool empty()
+    {
+        return (front == -1 && rear == -1);
+    }
+    bool full()
+    {
+        return (rear!=-1 && rear == front);
+    }
+    int getFront()
+    {
+        if (empty())
+        {
+            cout << "Queue Underflow" << endl;
+            return -1;
+        }
+        else
+        {
+            return arr[front];
+        }
+    }
+    int getRear()
+    {
+        if (empty())
+        {
+            cout << "Queue Underflow" << endl;
+            return -1;
+        }
+        else
+        {
+            return arr[(rear - 1 + max_size) % max_size];
+        }
+    }
+
+    int getSize()
+    {
+        return size;
+    }
+    int getMaxSize()
+    {
+        return max_size;
+    }
+    void print()
+    {
+        int i = 0;
+        if (empty())
+        {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        else
+        {
+            while (i < max_size)
+            {
+                cout << arr[i] << " ";
+                i++;
+            }
+            cout << endl;
+        }
+    }
+};
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    CircularQueue cq = CircularQueue(5);
+    cq.print();
+    cq.enqueue(5);
+    cq.enqueue(3);
+    cq.enqueue(6);
+    cq.print();
+    cq.enqueue(66);
+    cq.enqueue(77);
+    cq.print();
+    cq.dequeue();
+    cq.print();
+    cq.dequeue();
+    cq.dequeue();
+    cq.dequeue();
+    cq.print();
+    cq.dequeue();
+    cq.print();
+
     return 0;
 }
 
