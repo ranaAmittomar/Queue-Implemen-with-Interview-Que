@@ -1,7 +1,9 @@
 // Queue Implemen with Interview Que.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//Basic Implementation and Some problems are being commented in order to implement as many questions as possible in a  SINGLE FILE OF CPP
 
 
 #include <iostream>
+#include<queue>
 using namespace std;
 
 /*
@@ -116,6 +118,7 @@ public:
 
 */
 
+/*
 class CircularQueue  //circular queue implementation..
 
 {
@@ -240,9 +243,72 @@ public:
     }
 };
 
+*/
+
+
+//GENERATE NUMBERS WITH GIVEN SET OF DIGITS....
+
+void generateNumbers()
+{
+    //Input section
+    int d;
+    cout << "Enter Value Less Than 15 for number of array element:-  " << endl;
+    cin >> d;
+    int digits[20];
+    cout << "Please Enter Sorted Elements:- " << endl;
+    for (int i = 0; i < d; i++)
+        cin >> digits[i];
+    cout << "Enter count till you want to generate number:- " << endl;
+    int n;
+    cin >> n;
+
+
+    //implementation to Generate Numbers 
+
+    cout << "The Generated Element Queue is :- " << endl;
+
+    if (n <= d)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            cout << digits[i] << " ";
+        }
+    }
+    else
+    {
+        queue<int> q;
+        for (int i = 0; i < d; i++)
+            q.push(digits[i]);
+
+
+
+        int inserted = d, printed = 0;
+        while (printed < n)
+        {
+            int t = q.front();
+            q.pop();
+            cout << t << " ";
+            printed++;
+            if(inserted < n)
+            {
+                for (int i = 0; i < d; i++)
+                {
+                    if (inserted < n)
+                    {
+                        q.push(t * 10 + digits[i]);
+                        inserted++;
+                    }
+                }
+            }
+        }
+    }
+}
+
 int main()
 {
-    CircularQueue cq = CircularQueue(5);
+
+    /*
+    *  CircularQueue cq = CircularQueue(5);
     cq.print();
     cq.enqueue(5);
     cq.enqueue(3);
@@ -255,10 +321,11 @@ int main()
     cq.print();
     cq.dequeue();
     cq.dequeue();
-    cq.dequeue();
     cq.print();
-    cq.dequeue();
-    cq.print();
+    cq.getRear();
+    */
+
+    generateNumbers();
 
     return 0;
 }
