@@ -5,6 +5,7 @@
 #include <iostream>
 #include<queue> //Just to use the STL Library for Queue. We include this header file..
 #include<stack>
+#include<deque>
 using namespace std;
 
 /*
@@ -366,7 +367,8 @@ public:
 
 //Implementing a Queue using 2 Stacks.... (Important Question)..
 
-class Queue 
+/*
+class Queue
 {
     stack<int>* s1, * s2;
 public:
@@ -465,6 +467,11 @@ public:
 
 
 };
+*
+
+*/
+
+
 int main()
 {
 
@@ -503,6 +510,7 @@ int main()
     */
    
 
+    /*
     Queue q = Queue();
     q.push(10);
     q.push(20);
@@ -510,6 +518,44 @@ int main()
     cout << q.front() << endl;
     cout << q.back() << endl;
     q.pop();
+    */
+
+
+    //DEQUEUE DS-> (Doubly Ended Queue DS) Implementation...
+
+    int n;
+    cout << "Enter the length of Array less then 50" << endl;
+    cin >> n;
+    int arr[50];
+    cout << "Enter the Array Elements:-  " << endl;
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+    cout << "The Entered Array is :-  ";
+    for (int i = 0; i < n; i++)
+        cout << arr[i]<<" ";
+    cout << endl;
+    cout << "Enter the Window Length for Deque" << endl;
+    int k;
+    cin >> k;
+    deque<int> dq;
+    for (int i = 0; i < k; i++)
+    {
+        while (!dq.empty() && arr[i] >= arr[dq.back()])
+            dq.pop_back(); 
+        dq.push_back(i);
+    }
+    for (int i = k; i < n; i++)
+    {
+        cout << arr[dq.front()] << " ";
+        while (!dq.empty() && dq.front() <= i - k)
+            dq.pop_front();
+        while (!dq.empty() && arr[i] >=  arr[dq.back()])
+            dq.pop_back();
+        dq.push_back(i);
+    }
+
+    cout << arr[dq.front()] << endl;
+
     return 0;
 }
 
