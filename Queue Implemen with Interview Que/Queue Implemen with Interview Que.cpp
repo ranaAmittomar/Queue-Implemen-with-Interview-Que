@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include<queue> //Just to use the STL Library for Queue. We include this header file..
+#include<stack>
 using namespace std;
 
 /*
@@ -306,8 +307,9 @@ void generateNumbers()
 */
 
 
-//Implement Stack Using 2 Queues....  
-class Stack 
+//Implement Stack Using 2 Queues....  (Important Question)
+/*
+class Stack
 {
     queue<int> * q1, * q2, * qtemp;
 public:
@@ -358,6 +360,111 @@ public:
         return q1->empty() && q2->empty();
     }
 };
+
+*/
+
+
+//Implementing a Queue using 2 Stacks.... (Important Question)..
+
+class Queue 
+{
+    stack<int>* s1, * s2;
+public:
+    Queue(){
+        s1 = new stack<int>;
+        s2 = new stack<int>;
+    }
+
+    void push(int data)
+    {
+        s1->push(data);
+    }
+    void pop()
+    {
+        if (s2->empty())
+        {
+            //transfer elements from s1 to s2
+            if (s1->empty())
+            {
+                cout << "Queue s1 Underflow" << endl;
+            }
+            else
+            {
+                while (!s1->empty())
+                {
+                    s2->push(s1->top());
+                    s1->pop();
+                }
+                s2->pop();
+            }
+        }
+        else
+        {
+            s2->pop();
+        }
+    }
+    int front()
+    {
+        if (s2->empty())
+        {
+            //transfer logic
+            if (s1->empty())
+            {
+                cout << "Stack S1 is Undeflow" << endl;
+                return -1;
+            }
+            else
+            {
+                while (!s1->empty())
+                {
+                    s2->push(s1->top());
+                    s1->pop();
+                }
+                return s2->top();
+            }
+        }
+        else
+        {
+            return s2->top();
+        }
+    }
+    int back()
+    {
+        if (s1->empty())
+        {
+            //transfer logic
+            if (s2->empty())
+            {
+                cout << "Stack S1 is Undeflow" << endl;
+                return -1;
+            }
+            else
+            {
+                while (!s2->empty())
+                {
+                    s1->push(s2->top());
+                    s2->pop();
+                }
+                return s1->top();
+            }
+        }
+        else
+        {
+            return s1->top();
+        }
+    }
+    int size()
+    {
+        return s1->size() + s2->size();
+    }
+    bool empty()
+    {
+        return s1->empty() && s2->empty();
+    }
+
+
+
+};
 int main()
 {
 
@@ -377,14 +484,14 @@ int main()
     cq.dequeue();
     cq.print();
     cq.getRear();
-    */
-
+    */ 
     //generateNumbers();
-
-    Stack st = Stack();
+    /*
+     Stack st = Stack();
     st.push(10);
     st.push(20);
     st.push(30);
+    st.size();
     cout << st.top() << endl;
     st.pop();
     cout << st.top() << endl;
@@ -393,7 +500,16 @@ int main()
     st.pop();
     st.pop();
     cout << st.top() << endl;
+    */
+   
 
+    Queue q = Queue();
+    q.push(10);
+    q.push(20);
+    q.push(30);
+    cout << q.front() << endl;
+    cout << q.back() << endl;
+    q.pop();
     return 0;
 }
 
