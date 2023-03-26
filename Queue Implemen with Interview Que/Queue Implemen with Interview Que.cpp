@@ -3,7 +3,7 @@
 
 
 #include <iostream>
-#include<queue>
+#include<queue> //Just to use the STL Library for Queue. We include this header file..
 using namespace std;
 
 /*
@@ -245,9 +245,8 @@ public:
 
 */
 
-
 //GENERATE NUMBERS WITH GIVEN SET OF DIGITS....
-
+/*
 void generateNumbers()
 {
     //Input section
@@ -263,7 +262,7 @@ void generateNumbers()
     cin >> n;
 
 
-    //implementation to Generate Numbers 
+    //implementation to Generate Numbers
 
     cout << "The Generated Element Queue is :- " << endl;
 
@@ -304,6 +303,61 @@ void generateNumbers()
     }
 }
 
+*/
+
+
+//Implement Stack Using 2 Queues....
+class Stack 
+{
+    queue<int> * q1, * q2, * qtemp;
+public:
+    Stack()
+    {
+        q1 = new queue<int>;
+        q2 = new queue<int>;
+        qtemp = NULL;
+    }
+    void push(int data)
+    {
+        q2->push(data);
+        while (!q1->empty())
+        {
+            q2->push(q1->front());
+            q1->pop();
+        }
+        qtemp = q1;
+        q1 = q2;
+        q2 = qtemp;
+    }
+    void pop()
+    {
+        if (empty())
+        {
+            cout << "Stack Underflow-Cannot Pop" << endl;
+            return;
+        }
+        else
+            q1->pop();
+    }
+    int top()
+    {
+        if (empty())
+        {
+            cout << "Stack Underflow" << endl;
+            return -1;
+        }
+        else
+            return q1->front();
+    }
+    int size()
+    {
+        return q1->size() + q2->size();
+    }
+    bool empty()
+    {
+        return q1->empty() && q2->empty();
+    }
+};
 int main()
 {
 
@@ -325,7 +379,20 @@ int main()
     cq.getRear();
     */
 
-    generateNumbers();
+    //generateNumbers();
+
+    Stack st = Stack();
+    st.push(10);
+    st.push(20);
+    st.push(30);
+    cout << st.top() << endl;
+    st.pop();
+    cout << st.top() << endl;
+    st.pop();
+    cout << st.top() << endl;
+    st.pop();
+    st.pop();
+    cout << st.top() << endl;
 
     return 0;
 }
