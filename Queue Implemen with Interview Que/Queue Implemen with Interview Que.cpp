@@ -306,7 +306,7 @@ void generateNumbers()
 */
 
 
-//Implement Stack Using 2 Queues....
+//Implement Stack Using 2 Queues....  
 class Stack 
 {
     queue<int> * q1, * q2, * qtemp;
